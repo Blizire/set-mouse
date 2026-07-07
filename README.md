@@ -13,6 +13,26 @@ This project was made entirely with [Claude](https://claude.com/claude-code).
 
 ## Installation
 
+### Option 1: Install script (recommended)
+
+Installs `set-mouse` system-wide so it's available to every user account
+on the machine.
+
+1. Clone or download this repository.
+2. Open PowerShell **as Administrator** and run:
+
+   ```powershell
+   .\install.ps1
+   ```
+
+   This builds a release binary, copies it to
+   `%ProgramFiles%\set-mouse\set-mouse.exe`, and adds that folder to the
+   system-wide `PATH`.
+
+3. Open a new terminal window and run `set-mouse` from anywhere.
+
+### Option 2: Manual build
+
 1. Clone or download this repository.
 2. Build a release binary:
 
@@ -21,21 +41,15 @@ This project was made entirely with [Claude](https://claude.com/claude-code).
    ```
 
 3. The executable will be at `target\release\set-mouse.exe`.
+4. Copy it to a folder that's on your `PATH`, for example:
 
-### Make it available as `set-mouse` from anywhere
+   ```powershell
+   Copy-Item target\release\set-mouse.exe "$env:USERPROFILE\bin\set-mouse.exe"
+   ```
 
-Copy the built executable to a folder that's on your `PATH`, for example:
-
-```powershell
-Copy-Item target\release\set-mouse.exe "$env:USERPROFILE\bin\set-mouse.exe"
-```
-
-(Create `%USERPROFILE%\bin` first if it doesn't exist, and add it to your
-`PATH` via **Settings → System → About → Advanced system settings →
-Environment Variables** if it isn't already.)
-
-Once that's done you can run `set-mouse` from any terminal without typing
-the full path.
+   (Create `%USERPROFILE%\bin` first if it doesn't exist, and add it to
+   your `PATH` via **Settings → System → About → Advanced system
+   settings → Environment Variables** if it isn't already.)
 
 ## Usage
 
