@@ -6,7 +6,7 @@ $installDir = Join-Path $env:ProgramFiles 'set-mouse'
 $exeName = 'set-mouse.exe'
 
 Write-Host "Building release binary..."
-cargo build --release
+cargo build --release --manifest-path (Join-Path $PSScriptRoot 'Cargo.toml')
 if ($LASTEXITCODE -ne 0) {
     throw "cargo build failed"
 }
