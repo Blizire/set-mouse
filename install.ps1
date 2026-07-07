@@ -1,6 +1,16 @@
-#Requires -RunAsAdministrator
+param(
+    [switch]$ElevatedRelaunch
+)
 
 $ErrorActionPreference = 'Stop'
+
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if (-not $isAdmin) {
+    Write-Host "Administrator privileges are required. Requesting elevation..."
+    $argList = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"", '-ElevatedRelaunch')
+    $proc = Start-Process -FilePath 'powershell.exe' -ArgumentList $argList -Verb RunAs -Wait -PassThru
+    exit $proc.ExitCode
+}
 
 $installDir = Join-Path $env:ProgramFiles 'set-mouse'
 $exeName = 'set-mouse.exe'
@@ -34,3 +44,7 @@ if ($pathEntries -notcontains $installDir) {
 
 Write-Host "set-mouse installed to $installDir"
 Write-Host "Open a new terminal window to use the 'set-mouse' command."
+
+if ($ElevatedRelaunch) {
+    Read-Host "Press Enter to close this window"
+}

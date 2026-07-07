@@ -19,13 +19,14 @@ Installs `set-mouse` system-wide so it's available to every user account
 on the machine.
 
 1. Clone or download this repository.
-2. Open PowerShell **as Administrator** and run:
+2. Open PowerShell and run:
 
    ```powershell
    .\install.ps1
    ```
 
-   This builds a release binary, copies it to
+   The script requests administrator privileges via a UAC prompt if it
+   isn't already elevated, builds a release binary, copies it to
    `%ProgramFiles%\set-mouse\set-mouse.exe`, and adds that folder to the
    system-wide `PATH`.
 
